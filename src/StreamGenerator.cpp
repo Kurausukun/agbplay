@@ -7,6 +7,7 @@
 
 #define SONG_FADE_OUT_TIME 10000
 #define SONG_FINISH_TIME 1000
+#define LOOP_ENDLESS 255
 
 using namespace std;
 using namespace agbplay;
@@ -254,6 +255,9 @@ void StreamGenerator::processSequenceTick()
                                 if (maxLoops-- <= 0) {
                                     isEnding = true;
                                     sm.FadeOut(SONG_FADE_OUT_TIME);
+                                }
+                                else if (maxLoops == LOOP_ENDLESS) {
+                                    break;
                                 }
                             }
                             cTrk.pos = reader.AGBPtrToPos(*(uint32_t *)&reader[cTrk.pos]);
