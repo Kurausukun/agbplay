@@ -505,9 +505,27 @@ void NoiseChannel::Init(uint8_t owner, CGBDef def, Note note, ADSR env)
     }
 }
 
+float NoiseChannel::NoiseKeyToFreq(int8_t key)
+{
+    if (key <= 20)
+    {
+        key = 0;
+    }
+    else
+    {
+        key = (int8_t) (key - 21);
+        if (key > 59)
+        {
+            key = 59;
+        }
+    }
+	
+    return CGBPatterns::NoiseKeyToFreqLUT[key];
+}
+
 void NoiseChannel::SetPitch(int16_t pitch)
 {
-    freq = clip(8.0f, 4096.0f * powf(8.0f, float(note.midiKey - 60) * (1.0f / 12.0f) + float(pitch) * (1.0f / 768.0f)), 524288.0f);
+    freq = NoiseKeyToFreq(int8_t(note.midiKey + int(round(pitch / 64.0f))));
 }
 
 void NoiseChannel::Process(float *buffer, size_t nblocks, MixingArgs& args)
