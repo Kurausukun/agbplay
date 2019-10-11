@@ -15,9 +15,9 @@ namespace agbplay
             static const float pat_sq25[];
             static const float pat_sq50[];
             static const float pat_sq75[];
-			
-			// noise LUT
-			static const float NoiseKeyToFreqLUT[];
+
+            // noise LUT
+            static const float NoiseKeyToFreqLUT[];
 
             //static const float pat_noise_fine[];
             //static const float pat_noise_rough[];
