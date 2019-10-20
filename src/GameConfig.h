@@ -31,6 +31,8 @@ namespace agbplay
             void SetTrackLimit(uint8_t trackLimit);
             uint16_t GetRevBufSize();
             void SetRevBufSize(uint16_t revBufSize);
+            bool GetMono();
+            void SetMono(bool mono);
 
             std::vector<SongEntry>& GetGameEntries();
 
@@ -45,5 +47,6 @@ namespace agbplay
             uint8_t engineRev;
             uint8_t trackLimit;
             uint16_t revBufSize;
+            bool mono;
     };
 }

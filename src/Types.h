@@ -19,6 +19,8 @@ namespace agbplay
     std::string rev2str(ReverbType t);
     ResamplerType str2res(const std::string& str);
     std::string res2str(ResamplerType t);
+    bool str2mono(const std::string& str);
+    std::string mono2str(bool mono);
 
     union CGBDef
     {

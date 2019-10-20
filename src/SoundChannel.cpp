@@ -17,16 +17,18 @@ using namespace agbplay;
 
 SoundChannel::SoundChannel(uint8_t owner, SampleInfo sInfo, ADSR env, Note note, uint8_t vol, int8_t pan, int16_t pitch, bool fixed)
 {
+    GameConfig& cfg = ConfigManager::Instance().GetCfg();
     this->owner = owner;
     this->note = note;
     this->env = env;
     this->sInfo = sInfo;
     this->eState = EnvState::INIT;
     this->envInterStep = 0;
+    if (cfg.GetMono())
+        pan = 0;
     SetVol(vol, pan);
     this->fixed = fixed;
 
-    GameConfig& cfg = ConfigManager::Instance().GetCfg();
     ResamplerType t = fixed ? cfg.GetResTypeFixed() : cfg.GetResType();
     switch (t) {
     case ResamplerType::NEAREST:
@@ -108,8 +110,12 @@ uint8_t SoundChannel::GetOwner()
 
 void SoundChannel::SetVol(uint8_t vol, int8_t pan)
 {
+    GameConfig& cfg = ConfigManager::Instance().GetCfg();
     if (eState < EnvState::REL) {
-        this->leftVol = uint8_t(note.velocity * vol * (-pan + 64) / 8192);
+        if (cfg.GetMono())
+            this->leftVol = uint8_t(note.velocity * vol * (pan + 64) / 8192);
+        else
+            this->leftVol = uint8_t(note.velocity * vol * (-pan + 64) / 8192);
         this->rightVol = uint8_t(note.velocity * vol * (pan + 64) / 8192);
     }
 }
