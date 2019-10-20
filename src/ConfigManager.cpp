@@ -30,6 +30,7 @@ ConfigManager::ConfigManager(const string& configPath)
     regex cfgPcmRes("^\\s*PCM_RES_TYPE\\s*=\\s*(.*)\\s*$");
     regex cfgPcmFixedRes("^\\s*PCM_FIX_RES_TYPE\\s*=\\s*(.*)\\s*$");
     regex cfgRevBufSize("^\\s*REV_BUF_SIZE\\s*=\\s*(\\d+)\\s*$");
+    regex cfgMono("^\\s*MONO\\s*=\\s*(.*)\\s*$");
 
     while (getline(configFile, line)) {
         if (configFile.bad()) {
@@ -67,6 +68,9 @@ ConfigManager::ConfigManager(const string& configPath)
         else if (regex_match(line, sm, cfgRevBufSize) && sm.size() == 2 && curCfg) {
             curCfg->SetRevBufSize(uint16_t(stoul(sm[1])));
 	    }
+        else if (regex_match(line, sm, cfgMono) && sm.size() == 2 && curCfg) {
+            curCfg->SetMono(uint16_t(str2mono(sm[1])));
+        }
     }
 
     curCfg = nullptr;
@@ -90,6 +94,7 @@ ConfigManager::~ConfigManager()
         configFile << "PCM_FIX_RES_TYPE = " << res2str(cfg.GetResTypeFixed()) << endl;
         configFile << "TRACK_LIMIT = " << static_cast<int>(cfg.GetTrackLimit()) << endl;
         configFile << "REV_BUF_SIZE = " << static_cast<int>(cfg.GetRevBufSize()) << endl;
+        configFile << "MONO = " << mono2str(cfg.GetMono()) << endl;
 
 
         for (SongEntry entr : cfg.GetGameEntries()) {

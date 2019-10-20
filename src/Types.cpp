@@ -58,6 +58,22 @@ std::string agbplay::res2str(ResamplerType t)
     return "LINEAR";
 }
 
+bool agbplay::str2mono(const std::string& str)
+{
+    if (str == "TRUE")
+        return true;
+    else
+        return false;
+}
+
+std::string agbplay::mono2str(bool mono)
+{
+    if (mono == true)
+        return "TRUE";
+    else
+        return "FALSE";
+}
+
 /*
  * ChnVol
  */

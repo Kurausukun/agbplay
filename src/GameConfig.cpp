@@ -19,6 +19,7 @@ GameConfig::GameConfig(const string& gameCode)
     engineRev = 0x0;
     trackLimit = 16;
     revBufSize = 1584;
+    mono = false;
 }
 
 GameConfig::~GameConfig()
@@ -108,6 +109,16 @@ uint16_t GameConfig::GetRevBufSize()
 void GameConfig::SetRevBufSize(uint16_t revBufSize)
 {
     this->revBufSize = revBufSize;
+}
+
+bool GameConfig::GetMono()
+{
+    return mono;
+}
+
+void GameConfig::SetMono(bool mono)
+{
+    this->mono = mono;
 }
 
 vector<SongEntry>& GameConfig::GetGameEntries()
