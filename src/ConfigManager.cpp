@@ -69,7 +69,7 @@ ConfigManager::ConfigManager(const string& configPath)
             curCfg->SetRevBufSize(uint16_t(stoul(sm[1])));
 	    }
         else if (regex_match(line, sm, cfgMono) && sm.size() == 2 && curCfg) {
-            curCfg->SetMono(uint16_t(str2mono(sm[1])));
+            curCfg->SetMono(str2mono(sm[1]));
         }
     }
 
