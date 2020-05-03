@@ -4,7 +4,7 @@
 #include <string>
 
 // for increased quality we process in subframes (including the base frame)
-#define INTERFRAMES 4
+#define INTERFRAMES 1
 
 namespace agbplay
 {
