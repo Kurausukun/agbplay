@@ -13,7 +13,7 @@
 using namespace std;
 using namespace agbplay;
 
-#define MAX_LOOPS 1
+#define MAX_LOOPS 255
 
 /*
  * public PlayerInterface

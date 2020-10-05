@@ -19,7 +19,7 @@ SoundMixer::SoundMixer(uint32_t sampleRate, uint32_t fixedModeRate, uint8_t reve
     : sq1(), sq2(), wave(), noise()
 {
     GameConfig& gameCfg = ConfigManager::Instance().GetCfg();
-    samplesPerBuffer = sampleRate / (AGB_FPS * INTERFRAMES);
+    samplesPerBuffer = (size_t)round(sampleRate / (AGB_FPS * INTERFRAMES));
     for (size_t i = 0; i < ntracks; i++)
     {
         switch (rtype) {

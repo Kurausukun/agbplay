@@ -6,7 +6,7 @@
 
 #include "Types.h"
 
-#define AGB_FPS 60
+#define AGB_FPS 59.7275005696058L
 #define N_CHANNELS 2
 
 namespace agbplay

@@ -13,7 +13,7 @@
 #define NOTE_ALL 0xFE
 #define NOTE_TIE -1
 // AGB has 60 FPS based processing
-#define AGB_FPS 60
+#define AGB_FPS 59.7275005696058L
 // stereo, so 2 channels
 #define N_CHANNELS 2
 // enable pan snap for CGB
