@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Wconversion -Wunreachable-code -std=c++17 -O3 -g
+CXXFLAGS = -Wall -Wextra -Wunreachable-code -std=c++17 -O3
 #CXXFLAGS = -Wall -Wextra -Wconversion -Wunreachable-code -std=c++17 -Og -g -fsanitize=address
 BINARY = agbplay
 LIBS = -lm -lncursesw -pthread -lsndfile -lportaudio -ljsoncpp

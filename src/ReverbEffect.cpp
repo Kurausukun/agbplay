@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 
 #include "ReverbEffect.h"
 #include "Debug.h"
@@ -10,10 +11,10 @@
  */
 
 ReverbEffect::ReverbEffect(uint8_t intensity, size_t streamRate, uint8_t numAgbBuffers)
-    : reverbBuffer((streamRate / AGB_FPS) * numAgbBuffers, sample{0.0f, 0.0f})
+    : reverbBuffer(static_cast<size_t>(roundl(static_cast<long double>(streamRate) / AGB_FPS)) * numAgbBuffers, sample{0.0f, 0.0f})
 {
     this->intensity = intensity / 128.0f;
-    size_t bufferLen = streamRate / AGB_FPS;
+    size_t bufferLen = static_cast<size_t>(roundl(static_cast<long double>(streamRate) / AGB_FPS));
     bufferPos = 0;
     bufferPos2 = bufferLen;
 }
@@ -74,7 +75,7 @@ size_t ReverbEffect::processInternal(sample *buffer, size_t numSamples)
 
 ReverbGS1::ReverbGS1(uint8_t intensity, size_t streamRate, uint8_t numAgbBuffers)
     : ReverbEffect(intensity, streamRate, numAgbBuffers), 
-    gsBuffer((streamRate / AGB_FPS), sample{0.0f, 0.0f})
+    gsBuffer(static_cast<size_t>(roundl(static_cast<long double>(streamRate) / AGB_FPS)), sample{0.0f, 0.0f})
 {
     bufferPos2 = 0;
 }
@@ -136,7 +137,7 @@ size_t ReverbGS1::processInternal(sample *buffer, size_t numSamples)
 ReverbGS2::ReverbGS2(uint8_t intensity, size_t streamRate, uint8_t numAgbBuffers,
         float rPrimFac, float rSecFac)
     : ReverbEffect(intensity, streamRate, numAgbBuffers), 
-    gs2Buffer(streamRate / AGB_FPS, sample{0.0f, 0.0f})
+    gs2Buffer(static_cast<size_t>(roundl(static_cast<long double>(streamRate) / AGB_FPS)), sample{0.0f, 0.0f})
 {
     // equivalent to the offset of -0xB0 samples for a 0x210 buffer size
     bufferPos2 = getBlocksPerBuffer() - (gs2Buffer.size() / 3);

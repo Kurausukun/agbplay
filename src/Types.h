@@ -4,7 +4,7 @@
 #include <string>
 
 // for increased quality we process in subframes (including the base frame)
-#define INTERFRAMES 4
+#define INTERFRAMES 1
 
 enum class CGBType : int { SQ1 = 0, SQ2, WAVE, NOISE };
 enum class EnvState : int { INIT = 0, ATK, DEC, SUS, REL, CGB_FAST_REL, DIE, DEAD };
@@ -20,6 +20,8 @@ ResamplerType str2res(const std::string& str);
 std::string res2str(ResamplerType t);
 CGBPolyphony str2cgbPoly(const std::string& str);
 std::string cgbPoly2str(CGBPolyphony t);
+bool str2mono(const std::string& str);
+std::string mono2str(bool mono);
 
 union CGBDef
 {

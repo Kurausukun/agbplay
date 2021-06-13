@@ -98,6 +98,7 @@ void ConfigManager::Load()
         configs.back().SetResType(str2res(playlist.get("pcm-resampling-algo", "linear").asString()));
         configs.back().SetResTypeFixed(str2res(playlist.get("pcm-fixed-rate-resampling-algo", "linear").asString()));
         configs.back().SetTrackLimit(uint8_t(std::clamp<int>(playlist.get("song-track-limit", 16).asInt(), 0, 16)));
+        configs.back().SetMono(bool(playlist.get("mono", false).asBool()));
 
         for (Json::Value song : playlist["songs"]) {
             configs.back().GetGameEntries().emplace_back(
@@ -121,6 +122,7 @@ void ConfigManager::Save()
         playlist["pcm-resampling-algo"] = res2str(cfg.GetResType());
         playlist["pcm-fixed-rate-resampling-algo"] = res2str(cfg.GetResTypeFixed());
         playlist["song-track-limit"] = static_cast<int>(cfg.GetTrackLimit());
+        playlist["mono"] = static_cast<bool>(cfg.GetMono());
 
         Json::Value games;
         for (const std::string& code : cfg.GetGameCodes())

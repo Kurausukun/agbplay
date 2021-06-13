@@ -12,7 +12,7 @@
 #include "ConfigManager.h"
 
 // TODO replace this with a config option
-#define MAX_LOOPS 1
+#define MAX_LOOPS 255
 
 /*
  * PlayerInterface data

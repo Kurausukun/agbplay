@@ -82,7 +82,7 @@ class NoiseChannel : public CGBChannel
 {
 public:
     NoiseChannel(uint8_t owner, NoisePatt np, ADSR env, Note note, uint8_t vol, int8_t pan, int8_t instPan, int16_t pitch);
-
+    double NoiseKeyToFreq(int8_t key);
     void SetPitch(int16_t pitch) override;
     void Process(sample *buffer, size_t numSamples, MixingArgs& args) override;
 private:

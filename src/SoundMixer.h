@@ -12,7 +12,7 @@
 #include "Constants.h"
 
 // AGB has 60 FPS based processing
-#define AGB_FPS 60
+#define AGB_FPS 59.7275005696058l
 
 struct PlayerContext;
 

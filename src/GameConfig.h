@@ -32,6 +32,8 @@ public:
     void SetTrackLimit(uint8_t trackLimit);
     uint16_t GetRevBufSize() const;
     void SetRevBufSize(uint16_t revBufSize);
+    bool GetMono() const;
+    void SetMono(bool mono);
 
     std::vector<SongEntry>& GetGameEntries();
 
@@ -46,4 +48,5 @@ private:
     uint8_t engineRev = 0x0;
     uint8_t trackLimit = 16;
     uint16_t revBufSize = 1584;
+    bool mono = false;
 };

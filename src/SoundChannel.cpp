@@ -16,9 +16,14 @@
 SoundChannel::SoundChannel(uint8_t owner, SampleInfo sInfo, ADSR env, Note note, uint8_t vol, int8_t pan, int8_t instPan, int16_t pitch, bool fixed)
     : env(env), note(note), sInfo(sInfo), fixed(fixed), owner(owner), instPan(instPan)
 {
+    GameConfig& cfg = ConfigManager::Instance().GetCfg();
+    if (cfg.GetMono())
+    {
+        pan = 0;
+        instPan = 0;
+    }
     SetVol(vol, pan);
 
-    GameConfig& cfg = ConfigManager::Instance().GetCfg();
     ResamplerType t = fixed ? cfg.GetResTypeFixed() : cfg.GetResType();
     switch (t) {
     case ResamplerType::NEAREST:
@@ -108,10 +113,19 @@ uint8_t SoundChannel::GetOwner() const
 
 void SoundChannel::SetVol(uint8_t vol, int8_t pan)
 {
+    GameConfig& cfg = ConfigManager::Instance().GetCfg();
     if (eState < EnvState::REL) {
-        int combinedPan = std::clamp(pan + instPan, -64, +63);
-        this->leftVol = uint8_t(note.velocity * vol * (-combinedPan + 64) / 8192);
-        this->rightVol = uint8_t(note.velocity * vol * (combinedPan + 64) / 8192);
+        if (cfg.GetMono())
+        {
+            this->leftVol = uint8_t(note.velocity * vol * (pan + 64) / 8192);
+            this->rightVol = uint8_t(note.velocity * vol * (pan + 64) / 8192);
+        }
+        else
+        {
+            int combinedPan = std::clamp(pan + instPan, -64, +63);
+            this->leftVol = uint8_t(note.velocity * vol * (-combinedPan + 64) / 8192);
+            this->rightVol = uint8_t(note.velocity * vol * (combinedPan + 64) / 8192);
+        }
     }
 }
 

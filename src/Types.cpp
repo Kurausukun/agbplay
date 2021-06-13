@@ -77,6 +77,22 @@ std::string cgbPoly2str(CGBPolyphony t) {
     return "mono-strict";
 }
 
+bool str2mono(const std::string& str)
+{
+    if (str == "true")
+        return true;
+    else
+        return false;
+}
+
+std::string mono2str(bool mono)
+{
+    if (mono)
+        return "true";
+    else
+        return "false";
+}
+
 /*
  * ChnVol
  */

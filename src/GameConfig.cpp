@@ -102,6 +102,16 @@ void GameConfig::SetRevBufSize(uint16_t revBufSize)
     this->revBufSize = revBufSize;
 }
 
+bool GameConfig::GetMono() const
+{
+    return mono;
+}
+
+void GameConfig::SetMono(bool mono)
+{
+    this->mono = mono;
+}
+
 std::vector<SongEntry>& GameConfig::GetGameEntries()
 {
     return gameEntries;

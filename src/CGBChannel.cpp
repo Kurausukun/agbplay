@@ -484,10 +484,28 @@ NoiseChannel::NoiseChannel(uint8_t owner, NoisePatt np, ADSR env, Note note, uin
     this->np = np;
 }
 
+double NoiseChannel::NoiseKeyToFreq(int8_t key)
+{
+    if (key < 20)
+        key = 0;
+    else
+    {
+        key -= 21;
+        if (key > 59)
+            key = 59;
+    }
+    
+    uint8_t v = CGBPatterns::NoiseKeyToFreqLUT[key];
+    uint8_t r = v & 7;
+    uint8_t s = static_cast<uint8_t>(v >> 4);
+    
+    return 524288.0 / (r == 0 ? 0.5 : static_cast<double>(r)) / pow(2.0, static_cast<double>(s + 1));
+}
+
 void NoiseChannel::SetPitch(int16_t pitch)
 {
-    float noisefreq = 4096.0f * powf(8.0f, float(note.midiKey - 60) * (1.0f / 12.0f) + float(pitch) * (1.0f / 768.0f));
-    freq = std::clamp(noisefreq, 8.0f, 524288.0f);
+    double noisefreq = NoiseKeyToFreq(static_cast<int8_t>(note.midiKey + static_cast<int>(round(pitch / 64.0))));
+    freq = std::clamp(noisefreq, 8.0, 524288.0);
 }
 
 void NoiseChannel::Process(sample *buffer, size_t numSamples, MixingArgs& args)

@@ -10,6 +10,7 @@
 
 #define NOTE_TIE -1
 #define NOTE_ALL 0xFE
+#define LOOP_ENDLESS 255
 
 /*
  * SequenceReader data
@@ -209,7 +210,7 @@ void SequenceReader::processSequenceTick()
                         case 0xB2:
                             // GOTO
                             if (ntrk == 0) {
-                                if (maxLoops-- <= 0) {
+                                if (maxLoops != LOOP_ENDLESS && maxLoops-- <= 0) {
                                     endReached = true;
                                     ctx.mixer.StartFadeOut(SONG_FADE_OUT_TIME);
                                 }

@@ -21,7 +21,7 @@ SoundMixer::SoundMixer(PlayerContext& ctx, uint32_t sampleRate, float masterVolu
 void SoundMixer::Init(uint32_t fixedModeRate, uint8_t reverb, float pcmMasterVolume, ReverbType rtype, uint8_t numTracks)
 {
     this->fixedModeRate = fixedModeRate;
-    this->samplesPerBuffer = sampleRate / (AGB_FPS * INTERFRAMES);
+    this->samplesPerBuffer = static_cast<size_t>(roundl(static_cast<long double>(sampleRate) / (AGB_FPS * INTERFRAMES)));
     this->numTracks = numTracks;
     this->pcmMasterVolume = pcmMasterVolume;
 

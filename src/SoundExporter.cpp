@@ -67,9 +67,9 @@ size_t SoundExporter::exportSong(const std::filesystem::path& fileName, uint16_t
     // setup our generators
     GameConfig& cfg = ConfigManager::Instance().GetCfg();
 
-    
+
     PlayerContext ctx(
-            1, 
+            2, 
             cfg.GetTrackLimit(),
             EnginePars(cfg.GetPCMVol(), cfg.GetEngineRev(), cfg.GetEngineFreq())
             );
