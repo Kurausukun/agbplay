@@ -69,7 +69,7 @@ size_t SoundExporter::exportSong(const std::filesystem::path& fileName, uint16_t
 
 
     PlayerContext ctx(
-            2, 
+            ConfigManager::Instance().GetMaxLoopsExport(),
             cfg.GetTrackLimit(),
             EnginePars(cfg.GetPCMVol(), cfg.GetEngineRev(), cfg.GetEngineFreq())
             );

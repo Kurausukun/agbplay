@@ -10,7 +10,7 @@
 
 #define NOTE_TIE -1
 #define NOTE_ALL 0xFE
-#define LOOP_ENDLESS 255
+#define LOOP_ENDLESS -1
 
 /*
  * SequenceReader data
@@ -44,7 +44,7 @@ const std::map<uint8_t, int8_t> SequenceReader::noteLut = {
  * public SequenceReader
  */
 
-SequenceReader::SequenceReader(PlayerContext& ctx, uint8_t maxLoops) 
+SequenceReader::SequenceReader(PlayerContext& ctx, int8_t maxLoops) 
     : ctx(ctx), maxLoops(maxLoops)
 {
 }
